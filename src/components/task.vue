@@ -2,12 +2,11 @@
   <li class="task" :id="'checked' + index">
     <div class="task__label" >
       <router-link 
-          :to="{name: 'todo', params: {id: index}}"
+          :to="{name: 'todo', params: {id: task.id}}"
       >{{ task.title }}</router-link>
       
       <input class="task__checkbox"
              type="checkbox" 
-             :for="'checked' + index"
              @click="toggle(index)"
       >             
     </div>

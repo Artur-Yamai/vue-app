@@ -35,7 +35,8 @@ export default {
         title: this.inputValue,
         todo: [],
         isSelected: false,
-        isComplete: false
+        isComplete: false,
+        id: +new Date()
       };
 
       this.ADD_NEW_TASK(newTask);

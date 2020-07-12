@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     tasks: [
       {
+        id: '0',
         title: 'Task 1',
         todo: [
           'todo 1',
@@ -21,12 +22,8 @@ export default new Vuex.Store({
   },
   
   getters: {
-    TASKS(state) {
-      return state.tasks
-    }
-    // task: (state) => (id) => state. {
-    //   return state.tasks;
-    // }
+    TASKS: state => state.tasks,
+    task: state => id => state.tasks.find(task => task.id === id)
   },
 
   mutations: {
@@ -34,8 +31,8 @@ export default new Vuex.Store({
       state.tasks.push(task)
     },
 
-    addNewTodo(state, newTodo) {
-      state.tasks[newTodo.index].todo.push(newTodo.newTodo);
+    addNewTodo(state, {id, todoItem}) {
+      state.tasks[id].todo.push(todoItem);
     }
 
   },

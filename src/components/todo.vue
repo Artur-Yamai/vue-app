@@ -1,14 +1,15 @@
 <template>
   <div class="todo">
+    {{id}}
     <h2 class="todo__title"></h2>
 
     <ul class="todo__list block-without-scroll"
     >      
       <li class="todo__item"
-          v-for="(todo, ind) in data.todo"
+          v-for="(todo, ind) in task.todo"
           :key="ind"          
       >{{todo}}</li>
-      <li class="todo__item" v-if="!data.todo.length">No items</li>      
+      <li class="todo__item" v-if="!task.todo.length">No items</li>      
     </ul>   
 
     <form class="todo__item todo__form">
@@ -26,16 +27,15 @@ import {mapActions} from 'vuex';
 
 export default {
   props: ['id'],
-  mounted() {
-    console.log(this.$props);
-  },
   data() {
     return {
+      newTodo: ''
     }
   },
-
   computed: {
-    
+    task() {
+      return this.$store.getters['task'](this.$route.params.id)      
+    }
   },
 
   methods: {
@@ -43,11 +43,12 @@ export default {
       'ADD_NEW_TODO'
     ]),
     pushToTodo() {
+      console.log(this.newTodo);
       if (!this.newTodo) return false;
 
       this.ADD_NEW_TODO({
-        newTodo: this.newTodo,
-        index: this.taskIndex
+        todoItem: this.newTodo,
+        id: this.id
       });
 
       this.newTodo = '';

@@ -13,7 +13,7 @@ Vue.use(VueRouter)
       name: 'home'
     },
     {
-      path: '/list/task-:id',
+      path: '/list/:id',
       component: todo,
       name: 'todo',
       props: true
