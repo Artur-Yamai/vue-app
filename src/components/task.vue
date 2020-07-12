@@ -1,16 +1,16 @@
 <template>
   <li class="task" :id="'checked' + index">
-    <label class="task__label" >
+    <div class="task__label" >
       <router-link 
-          :to="{name: 'todo', params: {id: index + 1, data: task}}"
+          :to="{name: 'todo', params: {id: index}}"
       >{{ task.title }}</router-link>
       
       <input class="task__checkbox"
-             :for="'checked' + index"
              type="checkbox" 
-             @click="toggle(index)">
-      
-    </label>
+             :for="'checked' + index"
+             @click="toggle(index)"
+      >             
+    </div>
     <sup class="task__todo"> {{ miniTodo }} </sup>
     
   </li>
@@ -21,9 +21,6 @@ export default {
   props: {
     task: {
       type: Object,
-      default() {
-        return {}
-      }
     },
     index: {
       type: Number
@@ -37,22 +34,18 @@ export default {
       for (let i in this.task.todo) {
         todoSup += `${this.task.todo[i]}, `;
         if (i >= 2) {
-          todoSup += ' ...'
-          break
+          todoSup += ' ...';
+          break;
         }
       }
 
       return todoSup;
-    },
-
-    selected() {
-      return 1
     }
   },
 
   methods: {
-    toggle(index) {
-      console.log(index);
+    toggle() {
+      console.log(this.checked);
     }
   }
   
@@ -61,7 +54,6 @@ export default {
 
 <style lang="scss">
 .task {
-  // height: 50px;
   position: relative;
   padding: 18px 30px;
   transition: 0.5s;

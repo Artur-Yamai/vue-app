@@ -3,7 +3,7 @@
 
     <form class="add-task"
           @submit.prevent="pushTask">
-      <input class="add-task__input" type="text" v-model="inputValue">
+      <input class="add-task__input" type="text" placeholder="Input your task" v-model.trim="inputValue">
       <button class="add-task__btn"
               @click.prevent="pushTask"
       >+</button>
@@ -29,16 +29,18 @@ export default {
       'ADD_NEW_TASK'
     ]),
     pushTask() {
+      if (!this.inputValue) return false;
+
       let newTask = {
-        title: this.inputValue.trim(),
+        title: this.inputValue,
         todo: [],
         isSelected: false,
         isComplete: false
-      }
+      };
 
       this.ADD_NEW_TASK(newTask);
 
-      this.inputValue = ''
+      this.inputValue = '';
     }
   }
   
@@ -50,7 +52,7 @@ export default {
     display: flex;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 30px 25px;
+    padding: 20px 25px;
     width: 80%;
     border-radius: 0 0 8px 8px;
     background-color: rgb(56, 56, 56);

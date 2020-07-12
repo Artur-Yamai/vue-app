@@ -1,5 +1,5 @@
 <template>
-  <ul class="task-list">
+  <ul class="task-list block-without-scroll">
     <task v-for="(task, index) in TASKS"
           :key="index"
           :index="index"
@@ -27,17 +27,12 @@ export default {
 <style lang="scss">
 .task-list {
   width: 80%;
-  height: calc(100vh - 57px - 85px - 64px); // (высота таск листа) = (высота экрана) - (высота хедера) - (высота футера) - (все марджины) 
+  height: calc(100vh - 57px - 65px - 64px);; // (высота таск листа) = (высота экрана) - (высота хедера) - (высота футера) - (все марджины) 
   overflow-y: auto;
   margin: 16px auto;
   background-color: rgb(230, 230, 230);
 
-  /* прячем боковой скроллбар */
-   -ms-overflow-style: none; /* ie 10+ */
-   overflow: -moz-scrollbars-none;/* FF */
-
-  /* хром, сафари */
-  &::-webkit-scrollbar { width: 0; }
+  
 
 }
 

@@ -15,42 +15,27 @@ export default new Vuex.Store({
           'todo 4'
         ],
         isSelected: false,
-        isComplete: false
-      },
-      {
-        title: 'Task 2',
-        todo: [
-          'todo 1',
-          'todo 2',
-          'todo 3',
-          'todo 4'
-        ],
-        selected: false,
-        isComplete: false
-      },
-      {
-        title: 'Task 3',
-        todo: [
-          'todo 1',
-          'todo 2',
-          'todo 3',
-          'todo 4'
-        ],
-        selected: false,
-        isComplete: false
+        isComplete: false      
       }
     ]
   },
   
   getters: {
     TASKS(state) {
-      return state.tasks;
+      return state.tasks
     }
+    // task: (state) => (id) => state. {
+    //   return state.tasks;
+    // }
   },
 
   mutations: {
     addNewTask(state, task) {
       state.tasks.push(task)
+    },
+
+    addNewTodo(state, newTodo) {
+      state.tasks[newTodo.index].todo.push(newTodo.newTodo);
     }
 
   },
@@ -58,6 +43,10 @@ export default new Vuex.Store({
   actions: {
     ADD_NEW_TASK({commit}, payLoad) {
       commit('addNewTask', payLoad)
+    },
+
+    ADD_NEW_TODO({commit}, payLoad) {
+      commit('addNewTodo', payLoad);
     }
   },
 

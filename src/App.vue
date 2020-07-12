@@ -60,4 +60,13 @@ a:hover {
   color: hsl(240, 100%, 73%);
 }
 
+.block-without-scroll {
+  /* прячем боковой скроллбар */
+   -ms-overflow-style: none; /* ie 10+ */
+   overflow: -moz-scrollbars-none;/* FF */
+
+  /* хром, сафари */
+  &::-webkit-scrollbar { width: 0; }
+}
+
 </style>
