@@ -1,7 +1,9 @@
 <template>
   <li class="task" :id="'checked' + index">
     <label class="task__label" >
-      <router-link :to="{name: 'todo', params: {id: index + 1}}">{{ task.title }}</router-link>
+      <router-link 
+          :to="{name: 'todo', params: {id: index + 1, data: task}}"
+      >{{ task.title }}</router-link>
       
       <input class="task__checkbox"
              :for="'checked' + index"
@@ -60,12 +62,13 @@ export default {
 <style lang="scss">
 .task {
   // height: 50px;
+  position: relative;
   padding: 18px 30px;
   transition: 0.5s;
   border-bottom: 1px solid lightgray;
 
   &:hover {
-    box-shadow: inset 0 0 5px 5px rgb(165, 165, 165);
+    box-shadow: inset 0 0 4px 1px rgb(165, 165, 165);
     transition: 0.5s;
   }
 

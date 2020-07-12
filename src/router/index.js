@@ -8,14 +8,15 @@ Vue.use(VueRouter)
 
   const routes = [
     {
-      path: '/home',
+      path: '/list',
       component: home,
       name: 'home'
     },
     {
-      path: '/list/task:id',
+      path: '/list/task-:id',
       component: todo,
-      name: 'todo'
+      name: 'todo',
+      props: true
     },
     {
       path: '*',

@@ -3,7 +3,7 @@
 
     <form class="add-task"
           @submit.prevent="pushTask">
-      <input class="add-task__input" type="text">
+      <input class="add-task__input" type="text" v-model="inputValue">
       <button class="add-task__btn"
               @click.prevent="pushTask"
       >+</button>
@@ -17,10 +17,28 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex';
 export default {
+  data() {
+    return {
+      inputValue: ''
+    }
+  },
   methods: {
+    ...mapActions([
+      'ADD_NEW_TASK'
+    ]),
     pushTask() {
-      console.log(1);
+      let newTask = {
+        title: this.inputValue.trim(),
+        todo: [],
+        isSelected: false,
+        isComplete: false
+      }
+
+      this.ADD_NEW_TASK(newTask);
+
+      this.inputValue = ''
     }
   }
   

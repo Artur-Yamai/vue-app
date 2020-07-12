@@ -52,4 +52,12 @@ input {
   outline: none;
 }
 
+a:link, a:visited, a:active, a:hover  { 
+  text-decoration: none; /* Убирает подчеркивание для ссылок */;
+  color: hsl(240, 100%, 57%);
+} 
+a:hover {
+  color: hsl(240, 100%, 73%);
+}
+
 </style>

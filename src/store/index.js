@@ -56,8 +56,8 @@ export default new Vuex.Store({
   },
 
   actions: {
-    ADD_NEW_TASK() {
-
+    ADD_NEW_TASK({commit}, payLoad) {
+      commit('addNewTask', payLoad)
     }
   },
 
