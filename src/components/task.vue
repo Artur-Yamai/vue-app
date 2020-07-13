@@ -6,7 +6,9 @@
       >{{ task.title }}</router-link>
       
       <div class="remove-task">
-      <button class="remove-task__delete">Delete</button>
+      <button class="remove-task__delete"
+              @click="removeThisTask(task.id)"
+      >Delete</button>
     </div>             
     </div>
     <sup class="task__todo"> {{ miniTodo }} </sup>
@@ -15,6 +17,8 @@
 </template>
 
 <script>
+import {mapActions} from 'vuex'
+
 export default {
   props: {
     task: {
@@ -31,7 +35,7 @@ export default {
 
       for (let i in this.task.todo) {
         todoSup += `${this.task.todo[i]} `;
-        if (i > 1) {
+        if (i >= 1) {
           todoSup += ' ...';
           break;
         }
@@ -42,8 +46,12 @@ export default {
   },
 
   methods: {
-    toggle() {
-      console.log(this.checked);
+    ...mapActions([
+      'REMOVE_TASK'
+    ]),
+    removeThisTask(id) {
+      this.REMOVE_TASK(id)
+      // console.log(id);
     }
   }
   

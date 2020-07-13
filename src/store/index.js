@@ -23,7 +23,7 @@ export default new Vuex.Store({
   
   getters: {
     TASKS: state => state.tasks,
-    task: state => id => state.tasks.find(task => task.id === id)
+    ID_TASKS: state => id => state.tasks.find(task => task.id === id)
   },
 
   mutations: {
@@ -33,8 +33,13 @@ export default new Vuex.Store({
 
     addNewTodo(state, {id, todoItem}) {
       const todo = state.tasks.find(task => task.id === id).todo;
-
       todo.push(todoItem);
+    },
+
+    removeTask(state, id) {
+      const task = state.tasks.find(task => task.id === id);
+      const index = state.tasks.indexOf(task);
+      state.tasks.splice(index, 1)
     }
 
   },
@@ -46,6 +51,10 @@ export default new Vuex.Store({
 
     ADD_NEW_TODO({commit}, payLoad) {
       commit('addNewTodo', payLoad);
+    },
+
+    REMOVE_TASK({commit}, payload) {
+      commit('removeTask', payload)
     }
   },
 

@@ -33,7 +33,7 @@ export default {
   },
   computed: {
     task() {
-      return this.$store.getters['task'](this.$route.params.id)      
+      return this.$store.getters['ID_TASKS'](this.$route.params.id)      
     }
   },
 
