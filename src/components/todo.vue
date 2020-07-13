@@ -1,7 +1,6 @@
 <template>
   <div class="todo">
-    {{id}}
-    <h2 class="todo__title"></h2>
+    <h2 class="todo__title">{{task.title}}</h2>
 
     <ul class="todo__list block-without-scroll"
     >      
@@ -43,7 +42,6 @@ export default {
       'ADD_NEW_TODO'
     ]),
     pushToTodo() {
-      console.log(this.newTodo);
       if (!this.newTodo) return false;
 
       this.ADD_NEW_TODO({

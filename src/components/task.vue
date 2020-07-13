@@ -5,10 +5,9 @@
           :to="{name: 'todo', params: {id: task.id}}"
       >{{ task.title }}</router-link>
       
-      <input class="task__checkbox"
-             type="checkbox" 
-             @click="toggle(index)"
-      >             
+      <div class="remove-task">
+      <button class="remove-task__delete">Delete</button>
+    </div>             
     </div>
     <sup class="task__todo"> {{ miniTodo }} </sup>
     
@@ -31,8 +30,8 @@ export default {
       let todoSup = '';
 
       for (let i in this.task.todo) {
-        todoSup += `${this.task.todo[i]}, `;
-        if (i >= 2) {
+        todoSup += `${this.task.todo[i]} `;
+        if (i > 1) {
           todoSup += ' ...';
           break;
         }
@@ -78,5 +77,16 @@ export default {
     color: gray;
     font-size: 70%;
   }
+
+  .remove-task {
+    
+    &__delete {
+      padding: 5px 30px;
+      border-radius: 4px;
+      background-color: rgb(231, 41, 41);
+      }
+  }
 }
+
+
 </style>
