@@ -9,10 +9,6 @@
       >+</button>
     </form>
 
-    <div class="remove-task">
-      <button class="remove-task__delete">Delete</button>
-    </div>
-
   </div>
 </template>
 
@@ -36,7 +32,7 @@ export default {
         todo: [],
         isSelected: false,
         isComplete: false,
-        id: +new Date()
+        id: String(+new Date())
       };
 
       this.ADD_NEW_TASK(newTask);
@@ -82,15 +78,6 @@ export default {
       
 
     }
-  }
-
-  .remove-task {
-    
-    &__delete {
-      padding: 5px 30px;
-      border-radius: 4px;
-      background-color: rgb(231, 41, 41);
-      }
   }
 
   

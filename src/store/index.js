@@ -32,7 +32,9 @@ export default new Vuex.Store({
     },
 
     addNewTodo(state, {id, todoItem}) {
-      state.tasks[id].todo.push(todoItem);
+      const todo = state.tasks.find(task => task.id === id).todo;
+
+      todo.push(todoItem);
     }
 
   },
@@ -45,6 +47,10 @@ export default new Vuex.Store({
     ADD_NEW_TODO({commit}, payLoad) {
       commit('addNewTodo', payLoad);
     }
+  },
+
+  watch: {
+    taskData: state => console.log(state)
   },
 
   modules: {
