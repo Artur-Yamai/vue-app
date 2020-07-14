@@ -1,25 +1,28 @@
 <template>
+
   <li class="task" :id="'checked' + index">
+
+
     <div class="task__label" >
       <router-link 
           :to="{name: 'todo', params: {id: task.id}}"
       >{{ task.title }}</router-link>
       
       <div class="remove-task">
-      <button class="remove-task__delete"
-              @click="removeThisTask(task.id)"
+      <button class="btn btn__delete"
+              @click="deleteRequest(task.id)"
       >Delete</button>
     </div>             
     </div>
-    <sup class="task__todo"> {{ miniTodo }} </sup>
+    <sup class="task__todo"> {{ shortTodoList }} </sup>
     
   </li>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
 
-export default {
+export default { 
+
   props: {
     task: {
       type: Object,
@@ -30,28 +33,23 @@ export default {
   },
 
   computed: {
-    miniTodo() {
+    shortTodoList() {
       let todoSup = '';
 
       for (let i in this.task.todo) {
         todoSup += `${this.task.todo[i]} `;
-        if (i >= 1) {
-          todoSup += ' ...';
-          break;
+        if (i > 1) {
+          return todoSup += ' ...';
         }
       }
-
       return todoSup;
     }
   },
 
   methods: {
-    ...mapActions([
-      'REMOVE_TASK'
-    ]),
-    removeThisTask(id) {
-      this.REMOVE_TASK(id)
-      // console.log(id);
+
+    deleteRequest(id) {
+      this.$store.dispatch('TOGGLE_POPUP', id)
     }
   }
   
@@ -86,14 +84,6 @@ export default {
     font-size: 70%;
   }
 
-  .remove-task {
-    
-    &__delete {
-      padding: 5px 30px;
-      border-radius: 4px;
-      background-color: rgb(231, 41, 41);
-      }
-  }
 }
 
 

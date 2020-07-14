@@ -1,18 +1,29 @@
 <template>
   <div class="todo">
-    <h2 class="todo__title">{{task.title}}</h2>
 
-    <ul class="todo__list block-without-scroll"
-    >      
-      <li class="todo__item"
-          v-for="(todo, ind) in task.todo"
-          :key="ind"          
-      >{{todo}}</li>
+    <h2 class="todo__title">
+      <span v-if="isChange">{{task.title}}</span>
+      <span v-else><input type="text" class="input-radius" v-model="task.title"></span>
+
+      <button class="btn" @click="isChange=!isChange">
+        <span v-if="isChange">change</span>
+        <span v-else>Save</span>
+      </button>
+      
+    </h2>
+
+    <ul class="todo__list block-without-scroll">      
+      <app-todo-item
+        class="todo__item"
+        v-for="(todo, index) in task.todo"
+        :key="index" 
+        :todoInfo="todo"
+      ></app-todo-item>
       <li class="todo__item" v-if="!task.todo.length">No items</li>      
     </ul>   
 
     <form class="todo__item todo__form">
-        <input class="todo__input" type="text" v-model.trim="newTodo">
+        <input class="todo__input input-radius" type="text" v-model.trim="newTodo">
         <button class="todo__add"
                 @click.prevent="pushToTodo"
         >Add</button>
@@ -22,12 +33,19 @@
 </template>
 
 <script>
+import AppTodoItem from './App-todo-item'
+
 import {mapActions} from 'vuex';
 
 export default {
+  components: {
+    AppTodoItem
+  },
   props: ['id'],
+
   data() {
     return {
+      isChange: true,
       newTodo: ''
     }
   },
@@ -75,6 +93,14 @@ export default {
     color: rgb(255, 255, 255);
   }
 
+  &__change-icon {
+    height: 16px;
+    color: red;
+
+    &:hover {
+    }
+  }
+
   &__list {
     margin: 0 auto;
     background-color: rgb(230, 230, 230);
@@ -99,9 +125,6 @@ export default {
   }
 
   &__input {
-    padding: 5px 16px;
-    border-radius: 15px;
-    margin-right: 15px;
     width: 300px;
   }
 

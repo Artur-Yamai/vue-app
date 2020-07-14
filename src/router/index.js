@@ -2,7 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 
 import home from '../components/home'
-import todo from '../components/todo'
+import todo from '../components/App-todo-list'
 
 Vue.use(VueRouter)
 

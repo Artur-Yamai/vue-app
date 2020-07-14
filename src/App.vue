@@ -69,4 +69,26 @@ a:hover {
   &::-webkit-scrollbar { width: 0; }
 }
 
+
+// глобальные классы
+
+.btn {
+  padding: 5px 30px;
+  border-radius: 4px;
+    
+  &__delete {    
+    background-color: rgb(231, 41, 41);
+  } 
+
+
+}
+
+.input-radius {
+  padding: 5px 16px;
+  border-radius: 15px;
+  margin-right: 15px;
+}
+
+  
+
 </style>

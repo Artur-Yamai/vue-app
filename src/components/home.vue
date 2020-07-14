@@ -1,25 +1,36 @@
 <template>
   <div class="home">
+
+    <app-popup class="popup" v-if="isShowPopup"></app-popup>
+
     <header class="header">
       <h1 class="header__title">Task List</h1>
     </header>
 
-    <task-list></task-list>
+    <app-task-list></app-task-list>
 
-    <panel-control></panel-control>
+    <app-panel-control></app-panel-control>
     
   </div>
 </template>
 
 <script>
-import taskList from './task-list';
-import panelControl from './panel-control';
+import AppPopup from './App-popup'
+import AppTaskList from './App-task-list';
+import AppPanelControl from './App-panel-control';
 
 export default {
   name: 'home',
   components: {
-    taskList,
-    panelControl
+    AppTaskList,
+    AppPanelControl,
+    AppPopup
+  },
+
+  computed: {
+    isShowPopup() {
+      return this.$store.getters['POPUP'].show;
+    }
   },
 
   // при перезагрузке обнавляет данные из localStorage
@@ -43,6 +54,14 @@ export default {
     padding: 10px 0;
     color: rgb(241, 241, 241)
   }
+}
+
+.popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 @media (max-width: 640px) {

@@ -1,20 +1,20 @@
 <template>
   <ul class="task-list block-without-scroll">
-    <task v-for="(task, index) in TASKS"
+    <app-task v-for="(task, index) in TASKS"
           :key="index"
           :index="index"
           :task='task'
-    ></task>
+    ></app-task>
   </ul>
 </template>
 
 <script>
-import task from './task'
+import AppTask from './App-task'
 import {mapGetters} from 'vuex'
 
 export default {
   components: {
-    task
+    AppTask
   },
   computed: {
     ...mapGetters([
