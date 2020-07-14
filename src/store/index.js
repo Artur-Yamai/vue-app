@@ -6,18 +6,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     tasks: [
-      {
-        id: '0',
-        title: 'Task 1',
-        todo: [
-          'todo 1',
-          'todo 2',
-          'todo 3',
-          'todo 4'
-        ],
-        isSelected: false,
-        isComplete: false      
-      }
     ]
   },
   
@@ -27,7 +15,7 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    addNewTask(state, task) {
+    addNewTask: (state, task) => {
       state.tasks.push(task)
     },
 
@@ -45,23 +33,31 @@ export default new Vuex.Store({
   },
 
   actions: {
-    ADD_NEW_TASK({commit}, payLoad) {
-      commit('addNewTask', payLoad)
+    ADD_NEW_TASK({commit, dispatch}, payLoad) {
+      commit('addNewTask', payLoad);
+      dispatch('SAVE_STORAGE');
     },
 
-    ADD_NEW_TODO({commit}, payLoad) {
+    ADD_NEW_TODO({commit, dispatch}, payLoad) {
       commit('addNewTodo', payLoad);
+      dispatch('SAVE_STORAGE');
     },
 
-    REMOVE_TASK({commit}, payload) {
-      commit('removeTask', payload)
+    REMOVE_TASK({commit, dispatch}, payload) {
+      commit('removeTask', payload);
+      dispatch('SAVE_STORAGE');
+    },
+
+    // берет данные из localStorage, чтобы сохранить данные при перезагрузке
+    GET_STORAGE({state}) {
+      state.tasks = JSON.parse(localStorage.getItem('allTask'))
+    },
+
+    // сохраняет данные в localStorage
+    SAVE_STORAGE({state}) {     
+      let actualData = JSON.parse(JSON.stringify(state.tasks))
+      localStorage.setItem('allTask', JSON.stringify(actualData));
     }
-  },
-
-  watch: {
-    taskData: state => console.log(state)
-  },
-
-  modules: {
   }
+
 })

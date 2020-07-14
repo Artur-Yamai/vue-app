@@ -20,6 +20,11 @@ export default {
   components: {
     taskList,
     panelControl
+  },
+
+  // при перезагрузке обнавляет данные из localStorage
+  created() {
+    this.$store.dispatch('GET_STORAGE')
   }
 }
 </script>
