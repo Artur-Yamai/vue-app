@@ -5,7 +5,7 @@
       <span v-if="isChange">{{task.title}}</span>
       <span v-else><input type="text" class="input-radius" v-model="task.title"></span>
 
-      <button class="btn" @click="isChange=!isChange">
+      <button class="btn" @click="changeTitle">
         <span v-if="isChange">change</span>
         <span v-else>Save</span>
       </button>
@@ -18,6 +18,8 @@
         v-for="(todo, index) in task.todo"
         :key="index" 
         :todoInfo="todo"
+        :id="id"
+        :thisIndex="index"
       ></app-todo-item>
       <li class="todo__item" v-if="!task.todo.length">No items</li>      
     </ul>   
@@ -68,6 +70,16 @@ export default {
       });
 
       this.newTodo = '';
+    },
+
+    changeTitle() {
+      if (!this.isChange) {
+        this.$store.dispatch('CHANGE_TITLE', {
+          id: this.id,
+          title: this.task.title
+        })
+      }
+      this.isChange = !this.isChange
     }
   },
 
@@ -91,14 +103,6 @@ export default {
     border-radius: 8px 8px 0 0;
     background-color: rgb(93, 93, 93);
     color: rgb(255, 255, 255);
-  }
-
-  &__change-icon {
-    height: 16px;
-    color: red;
-
-    &:hover {
-    }
   }
 
   &__list {

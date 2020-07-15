@@ -1,13 +1,20 @@
 <template>
   <div id="app">
+
+    <header class="header">
+      <h1>Заметки</h1>
+    </header>
+
     <router-view></router-view>
+
   </div>
 </template>
 
 <script>
 
 export default {
-  components: {
+  created() {
+    this.$store.dispatch('GET_STORAGE')
   }
   
 }
@@ -15,8 +22,17 @@ export default {
 
 <style lang="scss">
 
+.header {
+  padding: 16px;
+  background-color: rgb(31, 30, 30);
+  color: rgb(236, 236, 236);
+  text-align: center;
+}
 
-/* мой нормалайз */
+
+
+
+/* кастомный нормалайз */
 
 * {
   box-sizing: border-box;
@@ -75,11 +91,21 @@ a:hover {
 .btn {
   padding: 5px 30px;
   border-radius: 4px;
+  background-color: lightgray;
+  cursor: pointer;
+
+  &:active {
+    box-shadow: inset 0 0 4px 2px darkgray;
+    border-radius: 4px;
+  }
     
-  &__delete {    
+  &__red {    
     background-color: rgb(231, 41, 41);
   } 
 
+  &__green {
+    background: lightgreen;
+  }
 
 }
 
@@ -88,6 +114,8 @@ a:hover {
   border-radius: 15px;
   margin-right: 15px;
 }
+
+
 
   
 

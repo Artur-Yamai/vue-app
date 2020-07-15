@@ -5,80 +5,53 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    tasks: [
-    ],
-
-    popup: {
-      show: false,
-      idFromDelete: 0
-    }
+    taskList: [
+    ]
   },
   
   getters: {
-    TASKS: state => state.tasks,
+    allTasks: state => state.taskList,
 
-    ID_TASKS: state => id => state.tasks.find(task => task.id === id),
-
-    POPUP: state => state.popup
+    getTaskFromId: state => id => state.taskList.find(task => task.id === id)
   },
 
   mutations: {
-    addNewTask: (state, task) => {
-      state.tasks.push(task)
-    },
 
-    addNewTodo(state, {id, todoItem}) {
-      const todo = state.tasks.find(task => task.id === id).todo;
-      todo.push(todoItem);
+    addTask(state, newTask) {
+      state.taskList.push(newTask)
     },
 
     removeTask(state, id) {
-      const task = state.tasks.find(task => task.id === id);
-      const index = state.tasks.indexOf(task);
-      state.tasks.splice(index, 1)
-    },
-
-    togglePopup(state, id) {
-      state.popup.show = !state.popup.show;
-        state.popup.idFromDelete = id;
-      
+      const task = state.taskList.find(task => task.id === id);
+      const index = state.taskList.indexOf(task);
+      state.taskList.splice(index, 1)
     }
-
+      
   },
 
   actions: {
-    ADD_NEW_TASK({commit, dispatch}, payLoad) {
-      commit('addNewTask', payLoad);
+
+    ADD_TASK({commit, dispatch}, payLoad) {
+      commit('addTask', payLoad);
       dispatch('SAVE_STORAGE');
     },
 
-    ADD_NEW_TODO({commit, dispatch}, payLoad) {
-      commit('addNewTodo', payLoad);
-      dispatch('SAVE_STORAGE');
+    REMOVE_TASK({commit}, payLoad) {
+      commit('removeTask', payLoad)
     },
 
-    REMOVE_TASK({state, commit, dispatch}) {
-      commit('removeTask', state.popup.idFromDelete);
-      dispatch('SAVE_STORAGE');
-    },
-
-    TOGGLE_POPUP({commit}, payLoad) {
-      commit('togglePopup', payLoad);
-    },
-
-    // берет данные из localStorage, чтобы сохранить данные при перезагрузке
+    // берет данные из localStorage, чтобы сохранить всё при перезагрузке
     GET_STORAGE({state}) {      
       if (!localStorage.allTask) {
-        console.log(localStorage.allTask);
         return false;
       }
       
-      state.tasks = JSON.parse(localStorage.allTask);
+      state.taskList = JSON.parse(localStorage.allTask);
     },
 
     // сохраняет данные в localStorage
     SAVE_STORAGE({state}) {     
-      let actualData = JSON.parse(JSON.stringify(state.tasks));
+      let actualData = JSON.parse(JSON.stringify(state.taskList));
       localStorage.setItem('allTask', JSON.stringify(actualData));
     }
   }
