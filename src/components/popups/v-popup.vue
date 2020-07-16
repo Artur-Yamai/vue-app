@@ -2,7 +2,7 @@
   <div class="fade">
 
     <div class="popup popup-delete">
-      <h4 class="popup__title">Подтвердите действие</h4>
+      <slot></slot>
       <div class="popup__buttons">
         <div type="submit" class="btn btn__green" @click="confirm">Да</div>
         <div type="submit" class="btn btn__red" @click="cancel">Нет</div>  

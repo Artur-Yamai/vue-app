@@ -1,11 +1,13 @@
 <template>
   <div class="task-title">
-    <v-popup-delete v-if="isDelete"
-                    @answer="answer"
-    ></v-popup-delete>
+    <v-popup v-if="isDelete"
+             @answer="answer"
+    >
+      <h4 class="popup__title">Точно хотите удалить?</h4>
+    </v-popup>
 
+      <router-link :to="{name: 'todo-list', params: {id: task.id}}">{{task.title}}</router-link>
 
-      <span>{{task.title}}</span>
       <button class="btn btn__red" 
               @click="showPopup"
       >удалить</button>
@@ -13,11 +15,11 @@
 </template>
 
 <script>
-import vPopupDelete from '../popups/v-popup-delete'
+import vPopup from '../popups/v-popup'
 export default {
   props: ['task'],
   components: {
-    vPopupDelete
+    vPopup
   },
 
   data() {

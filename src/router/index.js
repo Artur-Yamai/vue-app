@@ -1,26 +1,26 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import vHome from '../components/v-home'
-// import todo from '../components/App-todo-list'
+import vTaskList from '../components/tasks/v-task-list'
+import vTodoList from '../components/todos/v-todo-list'
 
 Vue.use(VueRouter)
 
   const routes = [
     {
       path: '/list',
-      component: vHome,
-      name: 'v-home'
+      component: vTaskList,
+      name: 'task-list'
     },
-    // {
-    //   path: '/list/:id',
-    //   component: todo,
-    //   name: 'todo',
-    //   props: true
-    // },
+    {
+      path: '/list/:id',
+      component: vTodoList,
+      name: 'todo-list',
+      props: true
+    },
     {
       path: '*',
-      redirect: { name: 'v-home' }
+      redirect: { name: 'task-list' }
     }
 ]
 
