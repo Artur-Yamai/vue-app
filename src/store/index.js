@@ -21,10 +21,20 @@ export default new Vuex.Store({
       state.taskList.push(newTask)
     },
 
+    addTodo(state, {id, newTodo}) {
+      const task = state.taskList.find(task => task.id === id);
+      task.todoList.push(newTodo);
+    },
+
     removeTask(state, id) {
       const task = state.taskList.find(task => task.id === id);
       const index = state.taskList.indexOf(task);
       state.taskList.splice(index, 1)
+    },
+
+    changeTaskTitle(state, {id, newTitle}) {
+      const task = state.taskList.find(task => task.id === id);
+      task.title = newTitle;
     }
       
   },
@@ -36,8 +46,19 @@ export default new Vuex.Store({
       dispatch('SAVE_STORAGE');
     },
 
-    REMOVE_TASK({commit}, payLoad) {
-      commit('removeTask', payLoad)
+    ADD_TODO({commit, dispatch}, payLoad ) {
+      commit('addTodo', payLoad);
+      dispatch('SAVE_STORAGE');
+    },
+
+    REMOVE_TASK({commit, dispatch}, payLoad) {
+      commit('removeTask', payLoad);
+      dispatch('SAVE_STORAGE');
+    },
+
+    CHANGE_TASK_TITLE({commit, dispatch}, payLoad) {
+      commit('changeTaskTitle', payLoad);
+      dispatch('SAVE_STORAGE');
     },
 
     // берет данные из localStorage, чтобы сохранить всё при перезагрузке

@@ -112,7 +112,6 @@ a:hover {
 .input-radius {
   padding: 5px 16px;
   border-radius: 15px;
-  margin-right: 15px;
 }
 
 

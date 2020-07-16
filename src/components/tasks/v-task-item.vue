@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import vPopup from '../popups/v-popup'
+import vPopup from '../v-popup'
 export default {
   props: ['task'],
   components: {

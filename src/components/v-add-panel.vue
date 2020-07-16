@@ -2,7 +2,7 @@
   <div>
     <div class="panel-control">
       <form @submit.prevent="addTask">
-        <input type="text" class="input-radius" v-model="value">
+        <input type="text" class="panel-control__input input-radius" v-model="value">
         <button class="btn btn__green" @click.prevent="getValue">Добавить</button>
       </form>
       
@@ -21,9 +21,8 @@ export default {
   methods: {
 
     getValue() {
-      this.$emit('inputValue', this.value)
-
-        this.value = '';
+      this.$emit('inputValue', this.value);
+      this.value = '';
     }
 
   }
@@ -39,6 +38,10 @@ export default {
   padding: 16px 24px;
   background-color: rgb(31, 30, 30);
   border-radius: 0 0 8px 8px;
+
+  &__input {
+    margin-right: 16px;
+  }
 }
   
 </style>
