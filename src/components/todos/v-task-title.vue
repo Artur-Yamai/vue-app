@@ -64,13 +64,11 @@ export default {
         id: this.id,
         newTitle: this.changedTitle
       });
-      this.isShowPopup = !this.isShowPopup;  
+      this.isChangeTitle = !this.isChangeTitle;  
     },
 
     clickFromChange() {
       this.isChangeTitle = !this.isChangedTitle;
-      console.log(this.isChangeTitle);
-      console.log(1);
     }
   }
   
