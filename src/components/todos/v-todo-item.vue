@@ -1,8 +1,15 @@
 <template>
   <div class="todo-item" :class="classDone">
     <span class="todo-item__content">
+      <!-- пытался в v-model засунуть переменную, в котороый -->
+      <!-- хранится состояние done данного todo, -->
+      <!-- но из-за этого динамически не обнавляется класс при удалении пунктовю -->
+      <!-- в данном случае все работает и не выдает ошибку,  -->
+      <!-- но это двунапавленная связь которая не приветствуется -->
+      <!-- магия какая-то, но другого, более адекватного регения не нашел. -->
+      <!-- Если вы его знаете, то буду очень рад ее услышать -->
       <input type="checkbox"
-             v-model="checkedTodo"
+             v-model="todo.done"
              name="todoBlock"
              @click="checkedThisTodo"
       >
@@ -23,12 +30,12 @@ export default {
     return {
       checkedTodo: this.todo.done
     }
-  },
+  },  
 
   computed: {
-    classDone() {
-      return this.checkedTodo ? 'done' : false;
-    }
+    // classDone() {
+    //   return this.todo.done ? 'done' : '';
+    // }
   },
 
   methods: {
@@ -41,7 +48,7 @@ export default {
 
     checkedThisTodo() {
       this.$store.dispatch('CHECKED_TODO', {
-        done: !this.checkedTodo,
+        done: !this.todo.done,
         taskID: this.id,
         todoIndex: this.todoIndex
       })
@@ -58,11 +65,6 @@ export default {
   padding: 8px 16px;
   border-bottom: 1px solid rgb(179, 179, 179);
   vertical-align: center;
-
-  &__content {
-    // display: flex;
-
-  }
 }
 
 .done {
