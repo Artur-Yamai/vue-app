@@ -35,7 +35,6 @@ export default {
     showPopup() {
       this.isDelete = !this.isDelete
     },
-
     
     answer(receivedAnswer) {
       if (receivedAnswer) {
@@ -44,7 +43,6 @@ export default {
 
       this.isDelete = !this.isDelete
     }
-
 
   }
   

@@ -1,5 +1,6 @@
 <template>
   <div>   
+    {{$store.state.taskList}}
     <v-task-title :title="thisTask.title"
                    :id="id"
     ></v-task-title>
@@ -46,10 +47,13 @@ export default {
   methods: {
     // этот метод добавляет новый пункт todo
     inputValue(val) {
-      this.$store.dispatch('ADD_TODO', {
-        id: this.id,
-        newTodo: val
-      })
+      if (val) {
+        this.$store.dispatch('ADD_TODO', {
+          id: this.id,
+          newTodo: val
+        })
+      }
+      
     }
   }
   

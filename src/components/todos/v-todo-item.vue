@@ -1,6 +1,6 @@
 <template>
   <div class="todo-item" :class="classDone">
-    <span>
+    <span class="todo-item__content">
       <input type="checkbox"
              v-model="checkedTodo"
              name="todoBlock"
@@ -34,7 +34,8 @@ export default {
   methods: {
     removeTodo() {
       this.$store.dispatch('REMOVE_TODO', {
-
+        taskID: this.id,
+        todoIndex: this.todoIndex
       })
     },
 
@@ -57,6 +58,11 @@ export default {
   padding: 8px 16px;
   border-bottom: 1px solid rgb(179, 179, 179);
   vertical-align: center;
+
+  &__content {
+    // display: flex;
+
+  }
 }
 
 .done {

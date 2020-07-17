@@ -10,7 +10,7 @@
     <h4 class="popup__title">хотите отменить изменение?</h4>
   </v-popup>
 
-  <h3 class="" v-if="!isChangeTitle">
+  <h3 v-if="!isChangeTitle">
     <span class="title-task__change"
           @click="clickFromChange"
     >&#9998;</span>      
@@ -97,6 +97,10 @@ export default {
   margin: 16px auto 0;
   width: 50%;
 
+  & h3 {
+    padding: 1.5px;
+  }
+
   &__change {
     color: lightseagreen;
     cursor: pointer;
@@ -107,7 +111,7 @@ export default {
   }
 
   &__text {
-    margin: 0 8px;
+    margin: 8px;
   }
 
   &__remove {

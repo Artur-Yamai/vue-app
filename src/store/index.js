@@ -1,5 +1,5 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
 Vue.use(Vuex)
 
@@ -26,6 +26,7 @@ export default new Vuex.Store({
     },
 
     addTodo(state, {id, newTodo}) {
+      // console.log(getters);
       const task = state.taskList.find(task => task.id === id);
       task.todoList.push({
         todo: newTodo,
@@ -37,6 +38,11 @@ export default new Vuex.Store({
       const task = state.taskList.find(task => task.id === id);
       const index = state.taskList.indexOf(task);
       state.taskList.splice(index, 1)
+    },
+
+    removeTodo(state, {taskID, todoIndex}) {
+      const task = state.taskList.find(task => task.id === taskID);
+      task.todoList.splice(todoIndex, 1);
     },
 
     changeTaskTitle(state, {id, newTitle}) {
@@ -65,6 +71,11 @@ export default new Vuex.Store({
 
     REMOVE_TASK({commit, dispatch}, payLoad) {
       commit('removeTask', payLoad);
+      dispatch('SAVE_STORAGE');
+    },
+
+    REMOVE_TODO({commit, dispatch}, payLoad) {
+      commit('removeTodo', payLoad)
       dispatch('SAVE_STORAGE');
     },
 
