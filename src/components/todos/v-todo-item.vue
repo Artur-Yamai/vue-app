@@ -33,9 +33,9 @@ export default {
   },  
 
   computed: {
-    // classDone() {
-    //   return this.todo.done ? 'done' : '';
-    // }
+    classDone() {
+      return this.todo.done ? 'done' : '';
+    }
   },
 
   methods: {
