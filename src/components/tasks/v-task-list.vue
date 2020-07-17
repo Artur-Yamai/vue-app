@@ -28,16 +28,8 @@ export default {
   },
 
   methods: {
-    inputValue(val) {
-      
-      if (val) {
-        const taskItem = {
-          id: String(+new Date),
-          title: val,
-          todoList: []
-        }
-        this.$store.dispatch('ADD_TASK', taskItem);
-      }
+    inputValue(val) {      
+      if (val) this.$store.dispatch('ADD_TASK', val)
     }
   }
 }

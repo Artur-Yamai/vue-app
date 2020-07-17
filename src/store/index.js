@@ -18,12 +18,19 @@ export default new Vuex.Store({
   mutations: {
 
     addTask(state, newTask) {
-      state.taskList.push(newTask)
+      state.taskList.push({
+            id: String(+new Date),
+            title: newTask,
+            todoList: []
+          })
     },
 
     addTodo(state, {id, newTodo}) {
       const task = state.taskList.find(task => task.id === id);
-      task.todoList.push(newTodo);
+      task.todoList.push({
+        todo: newTodo,
+        done: false
+      });
     },
 
     removeTask(state, id) {
@@ -35,6 +42,11 @@ export default new Vuex.Store({
     changeTaskTitle(state, {id, newTitle}) {
       const task = state.taskList.find(task => task.id === id);
       task.title = newTitle;
+    },
+
+    checkedTodo(state, {taskID, done, todoIndex}) {
+      const task = state.taskList.find(task => task.id === taskID);
+      task.todoList[todoIndex].done = done;
     }
       
   },
@@ -58,6 +70,11 @@ export default new Vuex.Store({
 
     CHANGE_TASK_TITLE({commit, dispatch}, payLoad) {
       commit('changeTaskTitle', payLoad);
+      dispatch('SAVE_STORAGE');
+    },
+
+    CHECKED_TODO({commit,dispatch}, payLoad) {
+      commit('checkedTodo', payLoad);
       dispatch('SAVE_STORAGE');
     },
 

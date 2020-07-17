@@ -11,6 +11,8 @@
                    v-for="(todo, i) in thisTask.todoList"
                    :key="i"
                    :todo="todo"
+                   :todoIndex="i"
+                   :id="id"
       ></v-todo-item>
 
     </div>

@@ -1,9 +1,13 @@
 <template>
 <div class="title-task">
-  <v-popup @answer="answer"
-           v-if="isShowPopup"
-  >
+  <!-- попап для подтверждени удаления таска-->
+  <v-popup @answer="formDelete" v-if="isPopupFromDelete">
     <h4 class="popup__title">хотите удалить?</h4>
+  </v-popup>
+
+  <!-- попап для отмены изменений в тайтле таска -->
+  <v-popup @answer="fromCancelChange" v-if="isCancelChange">
+    <h4 class="popup__title">хотите отменить изменение?</h4>
   </v-popup>
 
   <h3 class="" v-if="!isChangeTitle">
@@ -11,13 +15,15 @@
           @click="clickFromChange"
     >&#9998;</span>      
     <span class="title-task__text">{{title}}</span>
-    <span class="title-task__remove" @click="removeTask">&#10006;</span>
+    <span class="title-task__remove" @click="isPopupFromDelete = !isPopupFromDelete">&#10006;</span>
   </h3>
 
   <div class="title-task__change-block"
        v-else      
   >
-    <button class="title-task__cancel btn btn__red">Отменить</button>
+    <button class="title-task__cancel btn btn__red"
+            @click="isCancelChange = !isCancelChange"
+    >Отменить</button>
     <input class="title-task__input input-radius" 
            type="text"
            v-model="changedTitle">
@@ -40,23 +46,22 @@ export default {
 
   data() {
     return {
-      isShowPopup: false,
+      isPopupFromDelete: false,
       isChangeTitle: false,
+      isCancelChange: false,
       changedTitle: this.title
     }
   },
 
   methods: {
-    removeTask() {
-      this.isShowPopup = !this.isShowPopup;
-    },
 
-    answer(val) {
-      if (val) {
+    formDelete(bool) {
+      if (bool) {
         this.$store.dispatch('REMOVE_TASK', this.id);
-        this.$router.push({name: 'task-list'})
+        this.$router.push({name: 'task-list'});
+        console.log(1);
       }
-      this.isShowPopup = !this.isShowPopup;      
+      this.isPopupFromDelete = !this.isPopupFromDelete;      
     },
 
     saveChange() {
@@ -69,6 +74,14 @@ export default {
 
     clickFromChange() {
       this.isChangeTitle = !this.isChangedTitle;
+    },
+
+    fromCancelChange(bool) {
+      if (bool) {
+        this.isChangeTitle = !this.isChangeTitle;
+      }
+      this.isCancelChange = !this.isCancelChange;
+      this.changedTitle = this.title
     }
   }
   
