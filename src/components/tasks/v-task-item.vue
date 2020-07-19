@@ -74,7 +74,6 @@ export default {
 .task-title {
   display: flex;
   justify-content: space-between;
-  position: relative;
   width: 100%;
   padding: 24px;
   border-bottom: 1px solid gray;

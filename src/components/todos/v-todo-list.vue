@@ -1,5 +1,17 @@
 <template>
   <div>  
+
+    <buttno class="btn btn__to-main"
+            @click="returnToMain"
+    >	&#8592;</buttno>
+
+    <button class="btn btn__blue btn__undo-redo"
+            v-if="$store.state.snapshot"
+            @click.prevent="returnOldTidtle">
+      <span v-if="isUndoRedo">Отменить изменение Задачи</span>
+      <span v-else>повторить отмененное изменение</span>
+    </button>
+
     <v-task-title :title="thisTask.title"
                    :id="id"
     ></v-task-title>
@@ -29,6 +41,12 @@ import vAddPanel from '../v-add-panel';
 export default {
   props: ['id'],
 
+  data() {
+    return {
+      isUndoRedo: true
+    }
+  },
+
   components: {
     vTaskTitle,
     vTodoItem,
@@ -36,7 +54,6 @@ export default {
   },
 
   computed: {
-
     // находит таск в сторе
     thisTask() {
       return this.$store.getters['getTaskFromId'](this.id)
@@ -46,14 +63,33 @@ export default {
   methods: {
     // этот метод добавляет новый пункт todo
     inputValue(val) {
+      console.log(this.thisTask);
       if (val) {
         this.$store.dispatch('ADD_TODO', {
-          id: this.id,
+          taskID: this.id,
           newTodo: val
         })
       }
       
+    },
+
+    returnOldTidtle() {
+      this.isUndoRedo = !this.isUndoRedo;
+
+      const oldTitle = this.$store.state.snapshot;
+      this.$store.dispatch('CHANGE_TASK_TITLE', {
+        id: this.id,
+        newTitle: oldTitle
+      })
+    },
+
+    returnToMain() {
+      this.$router.push({name: 'task-list'})
     }
+  },
+
+  destroyed() {
+    this.$store.dispatch('CLEAR_SNAPSHOT');
   }
   
 }

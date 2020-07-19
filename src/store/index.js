@@ -6,7 +6,15 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     taskList: [
-    ]
+      {
+        id: 0,
+        title: '123',
+        todoList: [
+          {todo: 1, done: false}
+        ]
+      }
+    ],
+    snapshot: ''
   },
   
   getters: {
@@ -25,9 +33,9 @@ export default new Vuex.Store({
           })
     },
 
-    addTodo(state, {id, newTodo}) {
-      // console.log(getters);
-      const task = state.taskList.find(task => task.id === id);
+    addTodo(state, {newTodo, taskID}) {
+      let task = state.taskList.find(task => task.id === taskID);
+
       task.todoList.push({
         todo: newTodo,
         done: false
@@ -47,6 +55,11 @@ export default new Vuex.Store({
 
     changeTaskTitle(state, {id, newTitle}) {
       const task = state.taskList.find(task => task.id === id);
+
+      // сохраняет предыдущее название изменяемого таска
+      // в отдельной переменной
+      state.snapshot = task.title;
+
       task.title = newTitle;
     },
 
@@ -58,6 +71,10 @@ export default new Vuex.Store({
     newTodoText(state, {taskID, todoIndex, newText}) {
       const task = state.taskList.find(task => task.id === taskID);
       task.todoList[todoIndex].todo = newText;
+    },
+
+    clearSnapshot(state) {
+      state.snapshot = '';
     }
     
   },
@@ -98,6 +115,10 @@ export default new Vuex.Store({
       commit('newTodoText', payLoad);
       dispatch('SAVE_STORAGE');
 
+    },
+
+    CLEAR_SNAPSHOT({commit}) {
+      commit('clearSnapshot');
     },
 
     // берет данные из localStorage, чтобы сохранить всё при перезагрузке

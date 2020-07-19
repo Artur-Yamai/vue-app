@@ -1,23 +1,25 @@
 <template>
 <div class="title-task">
   <!-- попап для подтверждени удаления таска-->
-  <v-popup @answer="fromDelete" v-if="isPopupFromDelete">
+  <v-popup @answer="FromRemoving" v-if="isPopupFromRemoving">
     <h4 class="popup__title">хотите удалить?</h4>
   </v-popup>
 
   <!-- попап для отмены изменений в тайтле таска -->
-  <v-popup @answer="fromCancelChange" v-if="isCancelChange">
+  <v-popup @answer="FromCancelChange" v-if="isCancelChange">
     <h4 class="popup__title">хотите отменить изменение?</h4>
   </v-popup>
 
+  <!-- выводятся заголовок и кнопки изменения и удаления -->
   <h3 v-if="!isChangeTitle">
     <span class="title-task__change"
           @click="clickFromChange"
     >&#9998;</span>      
     <span class="title-task__text">{{title}}</span>
-    <span class="title-task__remove" @click="isPopupFromDelete = !isPopupFromDelete">&#10006;</span>
+    <span class="title-task__remove" @click="isPopupFromRemoving = !isPopupFromRemoving">&#10006;</span>
   </h3>
 
+  <!-- появляется поле для изменения и сохранения заголовка -->
   <div class="title-task__change-block"
        v-else      
   >
@@ -46,7 +48,7 @@ export default {
 
   data() {
     return {
-      isPopupFromDelete: false,
+      isPopupFromRemoving: false,
       isChangeTitle: false,
       isCancelChange: false,
       changedTitle: this.title
@@ -55,21 +57,20 @@ export default {
 
   methods: {
 
-    fromDelete(bool) {
+    FromRemoving(bool) {
       if (bool) {
         this.$store.dispatch('REMOVE_TASK', this.id);
         this.$router.push({name: 'task-list'});
-        console.log(1);
       }
-      this.isPopupFromDelete = !this.isPopupFromDelete;      
+      this.isPopupFromRemoving = !this.isPopupFromRemoving;      
     },
 
-    fromCancelChange(bool) {
+    FromCancelChange(bool) {
       if (bool) {
         this.isChangeTitle = !this.isChangeTitle;
+        this.changedTitle = this.title
       }
-      this.isCancelChange = !this.isCancelChange;
-      this.changedTitle = this.title
+      this.isCancelChange = !this.isCancelChange;      
     },
 
     saveChange() {

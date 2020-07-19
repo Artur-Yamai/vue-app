@@ -25,7 +25,7 @@
       <input class="input-radius" type="text" v-model="newTodoText">
       <button class="todo-item__changeTodo btn btn__blue"
               @click.prevent="saveNewTodoText"
-      >Соранить</button>
+      >Сохранить</button>
     </p>
     
 

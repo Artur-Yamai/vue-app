@@ -111,6 +111,25 @@ a:hover {
     background-color: rgb(0, 191, 255);
   }
 
+  &__undo-redo {
+    position: fixed;
+    right: 5px;
+  }
+
+  &__to-main {
+    border-radius: 100%;
+    padding: 0;
+    font-size: 50px;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 16px;
+
+    &:active {
+      box-shadow: none;
+    }
+  }
 }
 
 .input-radius {
