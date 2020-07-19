@@ -107,6 +107,10 @@ a:hover {
     background: lightgreen;
   }
 
+  &__blue {
+    background-color: rgb(0, 191, 255);
+  }
+
 }
 
 .input-radius {

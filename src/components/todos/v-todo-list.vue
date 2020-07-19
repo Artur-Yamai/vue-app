@@ -1,6 +1,5 @@
 <template>
-  <div>   
-    {{$store.state.taskList[0]}}
+  <div>  
     <v-task-title :title="thisTask.title"
                    :id="id"
     ></v-task-title>

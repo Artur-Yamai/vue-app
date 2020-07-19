@@ -1,7 +1,7 @@
 <template>
 <div class="title-task">
   <!-- попап для подтверждени удаления таска-->
-  <v-popup @answer="formDelete" v-if="isPopupFromDelete">
+  <v-popup @answer="fromDelete" v-if="isPopupFromDelete">
     <h4 class="popup__title">хотите удалить?</h4>
   </v-popup>
 
@@ -55,13 +55,21 @@ export default {
 
   methods: {
 
-    formDelete(bool) {
+    fromDelete(bool) {
       if (bool) {
         this.$store.dispatch('REMOVE_TASK', this.id);
         this.$router.push({name: 'task-list'});
         console.log(1);
       }
       this.isPopupFromDelete = !this.isPopupFromDelete;      
+    },
+
+    fromCancelChange(bool) {
+      if (bool) {
+        this.isChangeTitle = !this.isChangeTitle;
+      }
+      this.isCancelChange = !this.isCancelChange;
+      this.changedTitle = this.title
     },
 
     saveChange() {
@@ -74,14 +82,6 @@ export default {
 
     clickFromChange() {
       this.isChangeTitle = !this.isChangedTitle;
-    },
-
-    fromCancelChange(bool) {
-      if (bool) {
-        this.isChangeTitle = !this.isChangeTitle;
-      }
-      this.isCancelChange = !this.isCancelChange;
-      this.changedTitle = this.title
     }
   }
   

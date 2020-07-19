@@ -1,19 +1,35 @@
 <template>
   <div class="todo-item" :class="classDone">
     <span class="todo-item__content">
-      <!-- пытался в v-model засунуть переменную, в котороый -->
-      <!-- хранится состояние done данного todo, -->
-      <!-- но из-за этого динамически не обнавляется класс при удалении пунктовю -->
+    <p class="todo-item__text" v-if="!isChangeTodo">
+      <!-- пытался в v-model засунуть переменную, -->
+      <!-- в котороый хранится состояние done данного todo, -->
+      <!-- но из-за этого динамически не обнавляется класс при удалении пунктов. -->
       <!-- в данном случае все работает и не выдает ошибку,  -->
-      <!-- но это двунапавленная связь которая не приветствуется -->
-      <!-- магия какая-то, но другого, более адекватного регения не нашел. -->
-      <!-- Если вы его знаете, то буду очень рад ее услышать -->
+      <!-- но это (какбудто бы) двунапавленная связь со стором, которая не приветствуется -->
+      <!-- магия какая-то, но другого, более адекватного решения не нашел. -->
+      <!-- Если вы его знаете, то буду очень рад узнать подробнее-->
       <input type="checkbox"
              v-model="todo.done"
              name="todoBlock"
              @click="checkedThisTodo"
-      >
-    {{todo.todo}} 
+      >      
+      {{todo.todo}}
+      <button class="todo-item__changeTodo btn btn__blue"
+            @click.prevent="changeTodoClick"  
+      >изменить</button>
+    </p>
+
+
+    <p v-else class="todo-item__new-text">
+      <input class="input-radius" type="text" v-model="newTodoText">
+      <button class="todo-item__changeTodo btn btn__blue"
+              @click.prevent="saveNewTodoText"
+      >Соранить</button>
+    </p>
+    
+
+    
     </span>
     <button class="btn btn__red"
             @click.prevent="removeTodo"
@@ -28,9 +44,10 @@ export default {
 
   data() {
     return {
-      checkedTodo: this.todo.done
+      isChangeTodo: false,
+      newTodoText: this.todo.todo
     }
-  },  
+  },
 
   computed: {
     classDone() {
@@ -52,6 +69,19 @@ export default {
         taskID: this.id,
         todoIndex: this.todoIndex
       })
+    },
+
+    changeTodoClick() {
+      this.isChangeTodo = !this.isChangeTodo;
+    },
+
+    saveNewTodoText() {
+      this.$store.dispatch('NEW_TODO_TEXT', {
+        newText: this.newTodoText,
+        taskID: this.id,
+        todoIndex: this.todoIndex
+      });
+      this.isChangeTodo = !this.isChangeTodo;
     }
   }
   
@@ -62,9 +92,18 @@ export default {
 .todo-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 8px 16px;
   border-bottom: 1px solid rgb(179, 179, 179);
   vertical-align: center;
+
+  &__text {
+    margin: 0 4px;
+  }
+
+  &__changeTodo {
+    margin: 0 4px;
+  }
 }
 
 .done {

@@ -53,8 +53,13 @@ export default new Vuex.Store({
     checkedTodo(state, {taskID, done, todoIndex}) {
       const task = state.taskList.find(task => task.id === taskID);
       task.todoList[todoIndex].done = done;
+    },
+
+    newTodoText(state, {taskID, todoIndex, newText}) {
+      const task = state.taskList.find(task => task.id === taskID);
+      task.todoList[todoIndex].todo = newText;
     }
-      
+    
   },
 
   actions: {
@@ -84,9 +89,15 @@ export default new Vuex.Store({
       dispatch('SAVE_STORAGE');
     },
 
-    CHECKED_TODO({commit,dispatch}, payLoad) {
+    CHECKED_TODO({commit, dispatch}, payLoad) {
       commit('checkedTodo', payLoad);
       dispatch('SAVE_STORAGE');
+    },
+
+    NEW_TODO_TEXT({commit, dispatch}, payLoad) {
+      commit('newTodoText', payLoad);
+      dispatch('SAVE_STORAGE');
+
     },
 
     // берет данные из localStorage, чтобы сохранить всё при перезагрузке

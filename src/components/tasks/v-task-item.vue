@@ -7,6 +7,9 @@
     </v-popup>
 
       <router-link :to="{name: 'todo-list', params: {id: task.id}}">{{task.title}}</router-link>
+      <sup class="task-title__abbreviated-list">
+        {{abbreviatedList}}
+      </sup>
 
       <button class="btn btn__red" 
               @click="showPopup"
@@ -28,6 +31,23 @@ export default {
     }
   },
 
+  computed: {
+
+    abbreviatedList() {
+      let text = '';
+      
+      for (let i in this.task.todoList) {
+        text += this.task.todoList[i].todo + ' ';
+        if (i > 2) {
+          return `${text}...`;
+        } else if (i === 2) {
+          return text;
+        } 
+      }
+
+      return text;
+    }
+  },
   
   methods: {
 
@@ -54,9 +74,17 @@ export default {
 .task-title {
   display: flex;
   justify-content: space-between;
+  position: relative;
   width: 100%;
   padding: 24px;
   border-bottom: 1px solid gray;
+
+  &__abbreviated-list {
+    position: absolute;
+    bottom: 12px;
+    font-size: 80%;
+    color: lightslategray;
+  }
 }
 
 </style>
