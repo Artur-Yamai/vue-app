@@ -54,14 +54,14 @@ export default {
   },
 
   computed: {
-    // находит таск в сторе
+    // находит таск в сторе нужный таск
     thisTask() {
       return this.$store.getters['getTaskFromId'](this.id)
     }
   },
 
   methods: {
-    // этот метод добавляет новый пункт todo
+    // добавляет новый пункт todo
     inputValue(val) {
       console.log(this.thisTask);
       if (val) {
@@ -73,6 +73,8 @@ export default {
       
     },
 
+    // метод для отмены изменения названия туду, а также
+    // для повтора изменения
     returnOldTidtle() {
       this.isUndoRedo = !this.isUndoRedo;
 
@@ -83,11 +85,13 @@ export default {
       })
     },
 
+    // позволяет вернуться на главную
     returnToMain() {
       this.$router.push({name: 'task-list'})
     }
   },
 
+  // очищает снапшёт в сторе
   destroyed() {
     this.$store.dispatch('CLEAR_SNAPSHOT');
   }
