@@ -16,7 +16,7 @@
           @click="clickFromChange"
     >&#9998;</span>      
     <span class="title-task__text">{{title}}</span>
-    <span class="title-task__remove" @click="isPopupFromRemoving = !isPopupFromRemoving">&#10006;</span>
+    <span class="title-task__remove" @click="removeThisTask">&#10006;</span>
   </h3>
 
   <!-- появляется поле для изменения и сохранения заголовка -->
@@ -24,7 +24,7 @@
        v-else      
   >
     <button class="title-task__cancel btn btn__red"
-            @click="isCancelChange = !isCancelChange"
+            @click="cancelChange"
     >Отменить</button>
     <input class="title-task__input input-radius" 
            type="text"
@@ -56,7 +56,6 @@ export default {
   },
 
   methods: {
-
     // удаляет таск, в случае подтверждения
     FromRemoving(bool) {
       if (bool) {
@@ -87,7 +86,18 @@ export default {
     // выводит инпут, для изменения заголовка таска
     clickFromChange() {
       this.isChangeTitle = !this.isChangedTitle;
-    }
+    },
+
+    // убирает форму узиенения тайтла
+    cancelChange() {
+      this.isCancelChange = !this.isCancelChange
+    },
+
+    // выводит попап для подтверждения удаления
+    removeThisTask() {
+      this.isPopupFromRemoving = !this.isPopupFromRemoving
+    }  
+
   }
   
 }

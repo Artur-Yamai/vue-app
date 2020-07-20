@@ -1,10 +1,11 @@
 <template>
   <div>  
-
+    <!-- кнопка для возврата на главную страницу -->
     <button class="btn btn__to-main"
             @click="returnToMain"
     >	&#8592;</button>
 
+    <!-- undo/redo, появляется при изменении заголовка таска -->
     <button class="btn btn__blue btn__undo-redo"
             v-if="$store.state.snapshot"
             @click.prevent="returnOldTidtle">
@@ -15,6 +16,7 @@
     <v-task-title :title="thisTask.title"
                    :id="id"
     ></v-task-title>
+    
     <div class="todo-list block-without-scroll">      
       <p class="todo-list__empty-todos"
          v-if="!thisTask.todoList.length"
@@ -79,6 +81,7 @@ export default {
       this.isUndoRedo = !this.isUndoRedo;
 
       const oldTitle = this.$store.state.snapshot;
+
       this.$store.dispatch('CHANGE_TASK_TITLE', {
         id: this.id,
         newTitle: oldTitle

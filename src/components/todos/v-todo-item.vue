@@ -20,15 +20,13 @@
       >изменить</button>
     </p>
 
-
+    <!-- поле для изменения текста таска -->
     <p v-else class="todo-item__new-text">
       <input class="input-radius" type="text" v-model="newTodoText">
       <button class="todo-item__changeTodo btn btn__blue"
               @click.prevent="saveNewTodoText"
       >Сохранить</button>
-    </p>
-    
-
+    </p>  
     
     </span>
     <button class="btn btn__red"
@@ -50,12 +48,14 @@ export default {
   },
 
   computed: {
+    // добавляет класс,если пункт todo отмечен чекбоксом
     classDone() {
       return this.todo.done ? 'done' : '';
     }
   },
 
   methods: {
+    // удаляет выбранный todo
     removeTodo() {
       this.$store.dispatch('REMOVE_TODO', {
         taskID: this.id,
@@ -63,6 +63,8 @@ export default {
       })
     },
 
+    // отмчечает выбранный todo как выолненный
+    // а так же отмечает это в store
     checkedThisTodo() {
       this.$store.dispatch('CHECKED_TODO', {
         done: !this.todo.done,
@@ -71,10 +73,13 @@ export default {
       })
     },
 
+    // выводит поле для изменения текста todo
     changeTodoClick() {
       this.isChangeTodo = !this.isChangeTodo;
     },
 
+    // при изменении текста конкретного todo 
+    // сохраняет изменение и возвращает чукбокс и сам текст
     saveNewTodoText() {
       this.$store.dispatch('NEW_TODO_TEXT', {
         newText: this.newTodoText,

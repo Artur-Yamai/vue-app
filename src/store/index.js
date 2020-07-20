@@ -114,7 +114,6 @@ export default new Vuex.Store({
     NEW_TODO_TEXT({commit, dispatch}, payLoad) {
       commit('newTodoText', payLoad);
       dispatch('SAVE_STORAGE');
-
     },
 
     CLEAR_SNAPSHOT({commit}) {

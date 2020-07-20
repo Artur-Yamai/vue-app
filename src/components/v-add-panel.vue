@@ -1,4 +1,6 @@
 <template>
+<!-- компонент, который умеет 
+     брать из поля ввода данные, и отдавать родителю -->
   <div>
     <div class="panel-control">
       <form @submit.prevent="addTask">
@@ -24,9 +26,7 @@ export default {
       this.$emit('inputValue', this.value);
       this.value = '';
     }
-
-  }
-  
+  }  
 }
 </script>
 
