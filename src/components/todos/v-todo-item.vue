@@ -2,15 +2,8 @@
   <div class="todo-item" :class="classDone">
     <span class="todo-item__content">
     <p class="todo-item__text" v-if="!isChangeTodo">
-      <!-- пытался в v-model засунуть переменную, -->
-      <!-- в котороый хранится состояние done данного todo, -->
-      <!-- но из-за этого динамически не обнавляется класс при удалении пунктов. -->
-      <!-- в данном случае все работает и не выдает ошибку,  -->
-      <!-- но это (какбудто бы) двунапавленная связь со стором, которая не приветствуется -->
-      <!-- магия какая-то, но другого, более адекватного решения не нашел. -->
-      <!-- Если вы его знаете, то буду очень рад узнать подробнее-->
       <input type="checkbox"
-             v-model="todo.done"
+             v-model="todoDone"
              name="todoBlock"
              @click="checkedThisTodo"
       >      
@@ -43,7 +36,8 @@ export default {
   data() {
     return {
       isChangeTodo: false,
-      newTodoText: this.todo.todo
+      newTodoText: this.todo.todo,
+      todoDone: this.todo.done
     }
   },
 
@@ -67,7 +61,7 @@ export default {
     // а так же отмечает это в store
     checkedThisTodo() {
       this.$store.dispatch('CHECKED_TODO', {
-        done: !this.todo.done,
+        done: !this.todoDone,
         taskID: this.id,
         todoIndex: this.todoIndex
       })

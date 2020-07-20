@@ -23,7 +23,7 @@
       >Пока здесь ничего нет</p>
       <v-todo-item v-else
                    v-for="(todo, i) in thisTask.todoList"
-                   :key="i"
+                   :key="newKey(i)"
                    :todo="todo"
                    :todoIndex="i"
                    :id="id"
@@ -59,7 +59,8 @@ export default {
     // находит таск в сторе нужный таск
     thisTask() {
       return this.$store.getters['getTaskFromId'](this.id)
-    }
+    },
+    
   },
 
   methods: {
@@ -73,6 +74,10 @@ export default {
         })
       }
       
+    },
+
+    newKey(i) {
+      return i + Math.random();
     },
 
     // метод для отмены изменения названия туду, а также
