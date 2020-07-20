@@ -5,15 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    taskList: [
-      {
-        id: 0,
-        title: '123',
-        todoList: [
-          {todo: 1, done: false}
-        ]
-      }
-    ],
+    taskList: [],
+    // сохраняет последнее изменение заголовка таска
     snapshot: ''
   },
   
@@ -24,7 +17,12 @@ export default new Vuex.Store({
   },
 
   mutations: {
-
+    // правило:
+    // task = state.taskList.find(task => task.id === taskID)
+    // дублируется несколько раз, только потому, что иначе VueCLI выдавал ошибку в консоль, 
+    // и не давал нормально передавать данные из компонентов.
+    // я пытался исправить нормально, но в основном, все получалось на костылях
+    // в любом случае еще продолжу искать решение.
     addTask(state, newTask) {
       state.taskList.push({
             id: String(+new Date),
@@ -43,33 +41,34 @@ export default new Vuex.Store({
     },
 
     removeTask(state, id) {
-      const task = state.taskList.find(task => task.id === id);
-      const index = state.taskList.indexOf(task);
+      let task = state.taskList.find(task => task.id === id);
+      let index = state.taskList.indexOf(task);
       state.taskList.splice(index, 1)
     },
 
     removeTodo(state, {taskID, todoIndex}) {
-      const task = state.taskList.find(task => task.id === taskID);
+      let task = state.taskList.find(task => task.id === taskID);
       task.todoList.splice(todoIndex, 1);
     },
 
     changeTaskTitle(state, {id, newTitle}) {
-      const task = state.taskList.find(task => task.id === id);
+      let task = state.taskList.find(task => task.id === id);
 
       // сохраняет предыдущее название изменяемого таска
       // в отдельной переменной
       state.snapshot = task.title;
 
+      // обновляет заголовок
       task.title = newTitle;
     },
 
     checkedTodo(state, {taskID, done, todoIndex}) {
-      const task = state.taskList.find(task => task.id === taskID);
+      let task = state.taskList.find(task => task.id === taskID);
       task.todoList[todoIndex].done = done;
     },
 
     newTodoText(state, {taskID, todoIndex, newText}) {
-      const task = state.taskList.find(task => task.id === taskID);
+      let task = state.taskList.find(task => task.id === taskID);
       task.todoList[todoIndex].todo = newText;
     },
 
