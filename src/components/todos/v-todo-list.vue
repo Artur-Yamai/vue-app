@@ -1,9 +1,9 @@
 <template>
   <div>  
 
-    <buttno class="btn btn__to-main"
+    <button class="btn btn__to-main"
             @click="returnToMain"
-    >	&#8592;</buttno>
+    >	&#8592;</button>
 
     <button class="btn btn__blue btn__undo-redo"
             v-if="$store.state.snapshot"

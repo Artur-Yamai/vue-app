@@ -27,6 +27,7 @@ export default {
     ...mapGetters(['allTasks'])
   },
 
+  // добавляет новый таск
   methods: {
     inputValue(val) {      
       if (val) this.$store.dispatch('ADD_TASK', val)

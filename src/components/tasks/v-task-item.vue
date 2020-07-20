@@ -1,19 +1,22 @@
 <template>
   <div class="task-title">
     <v-popup v-if="isDelete"
-             @answer="answer"
+             @answer="answerToDelete"
     >
       <h4 class="popup__title">Точно хотите удалить?</h4>
     </v-popup>
 
+    <span class="task-title__text">
       <router-link :to="{name: 'todo-list', params: {id: task.id}}">{{task.title}}</router-link>
       <sup class="task-title__abbreviated-list">
         {{abbreviatedList}}
       </sup>
+    </span>      
 
       <button class="btn btn__red" 
               @click="showPopup"
       >удалить</button>
+
   </div>
 </template>
 
@@ -27,12 +30,14 @@ export default {
 
   data() {
     return {
+      // bool для отображения попапа
       isDelete: false
     }
   },
 
   computed: {
 
+    // выводит подпись с несколькими пунктами todo под таском
     abbreviatedList() {
       let text = '';
       
@@ -51,17 +56,18 @@ export default {
   
   methods: {
 
-    // метод, вызывающая popup
+    // вызывает popup
     showPopup() {
-      this.isDelete = !this.isDelete
+      this.isDelete = true;
     },
     
-    answer(receivedAnswer) {
+    // удаляет таск, в случае подтверждения действия
+    answerToDelete(receivedAnswer) {
       if (receivedAnswer) {
         this.$store.dispatch('REMOVE_TASK', this.task.id)
       }
 
-      this.isDelete = !this.isDelete
+      this.isDelete = false;
     }
 
   }
@@ -78,9 +84,13 @@ export default {
   padding: 24px;
   border-bottom: 1px solid gray;
 
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   &__abbreviated-list {
-    position: absolute;
-    bottom: 12px;
     font-size: 80%;
     color: lightslategray;
   }

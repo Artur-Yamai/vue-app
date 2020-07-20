@@ -57,6 +57,7 @@ export default {
 
   methods: {
 
+    // удаляет таск, в случае подтверждения
     FromRemoving(bool) {
       if (bool) {
         this.$store.dispatch('REMOVE_TASK', this.id);
@@ -65,6 +66,7 @@ export default {
       this.isPopupFromRemoving = !this.isPopupFromRemoving;      
     },
 
+    // отменяет редактирование таска, в случае подтверждения
     FromCancelChange(bool) {
       if (bool) {
         this.isChangeTitle = !this.isChangeTitle;
@@ -73,6 +75,7 @@ export default {
       this.isCancelChange = !this.isCancelChange;      
     },
 
+    // сохраняет изменение в таске
     saveChange() {
       this.$store.dispatch('CHANGE_TASK_TITLE', {
         id: this.id,
@@ -81,6 +84,7 @@ export default {
       this.isChangeTitle = !this.isChangeTitle;  
     },
 
+    // выводит инпут, для изменения заголовка таска
     clickFromChange() {
       this.isChangeTitle = !this.isChangedTitle;
     }
